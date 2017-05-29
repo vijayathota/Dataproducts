@@ -1,0 +1,33 @@
+---
+title: "Plotly Assignment"
+author: "Vijay"
+date: "May 29, 2017"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+
+## Plotly Assignment
+
+Creating couple of interactive plots usiing plotly package 
+
+- plot 1: Scatter plot between mpg,hp and disp from mtcars
+- plot 2: Scatter plot between mpg,cyl and wt from mtcars
+
+
+```{r, echo = FALSE, warning= FALSE, message= FALSE}
+library(plotly)
+data("mtcars")
+```
+
+## plot 1: Scatter plot between mpg,hp and disp from mtcars
+
+```{r, echo = FALSE, warning= FALSE, message= FALSE}
+plot_ly(x=mtcars$hp, y = mtcars$mpg, mode = "markers", color = mtcars$disp)
+```
+
+## plot 2: Scatter plot between mpg,cyl and wt from mtcars
+
+```{r, echo = FALSE, warning= FALSE, message= FALSE}
+plot_ly(x=mtcars$cyl, y = mtcars$mpg, mode = "markers", color = mtcars$wt)
+```
