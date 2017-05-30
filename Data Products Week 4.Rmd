@@ -1,0 +1,67 @@
+---
+title: "Data Production Week 4"
+author: "Vijay"
+date: "May 30, 2017"
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+## Description
+
+Target is to create an interactive web page to do analysis on mrcars data. 
+
+Sample mtcars data:
+
+```{r }
+head(mtcars, 10)
+```
+
+## Shity UI code
+
+```{r, eval = FALSE}
+
+shinyUI(fluidPage(
+        titlePanel("Analysis on Cars Data"),
+        sidebarLayout(
+                sidebarPanel(
+                        h6("Select only one option from below checkbox"),
+                        checkboxInput("hp", "horsepower", value = TRUE),
+                        checkboxInput("wt", "weight", value = FALSE),
+                        checkboxInput("cyl" , "cylinders", value = FALSE)
+                ),
+         mainPanel(
+                 plotOutput("plot1"),
+                 h3("Choosen predictor is "),
+                 textOutput("pred")
+         )     )))   
+        
+        
+```
+## Shiny Server Code
+
+```{r, eval = FALSE}
+shinyServer(function(input, output) {
+   
+  choosen_predict <- reactive({
+                
+          ifelse(input$hp,"hp",ifelse(input$wt,"wt",ifelse(input$cyl,"cyl","hp")))
+          
+          })
+ output$pred <- renderText( {choosen_predict() })
+ output$plot1 <- renderPlot({
+         eval(parse(text=sprintf("plot(data = mtcars, mtcars$%s,mtcars$mpg)", choosen_predict())))
+         })
+  
+}
+)
+```
+
+## Shiny Application
+
+Please one of the predictors mentioned below and see the corresponding graph
+
+<iframe src="http://127.0.0.1:5786" style="border: none; width: 800px; height: 500px"></iframe>
+
+## 
+
+THANK YOU
